@@ -2,3 +2,5 @@
 npm i -D nodemon
 // Middleware For logging
 npm i morgan
+// Config env for storing variables and values
+npm i dotenv

@@ -7,7 +7,10 @@ const app = express();
 
 // Middleware for enabling incoming request from body
 // Middlewares
-app.use(morgan('dev'));
+if(process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+}
+
 
 app.use(express.json());
 
@@ -26,8 +29,4 @@ app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 
 
-const PORT = 3000;
-
-app.listen(3000, () => {
-  console.log(`App listening on port ${PORT}...🚀🚀`);
-});
+module.exports = app;
