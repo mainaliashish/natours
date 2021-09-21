@@ -7,10 +7,11 @@ const app = express();
 
 // Middleware for enabling incoming request from body
 // Middlewares
+console.log(process.env.NODE_ENV);
+
 if(process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
-
 
 app.use(express.json());
 

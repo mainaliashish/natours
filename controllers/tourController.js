@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 const fs = require('fs');
 
 const tours = JSON.parse(
@@ -8,9 +9,9 @@ const tours = JSON.parse(
 exports.checkID = (req, res, next, val) => {
   const id = val * 1;
   // console.log(id);
-  const tour = tours.find(tour => tour.id === id);
-  if(!tour) {
-  // if (req.params.id * 1 > tours.length) {
+  const tour = tours.find((tour) => tour.id === id);
+  if (!tour) {
+    // if (req.params.id * 1 > tours.length) {
     return res.status(404).json({
       status: 'Fail',
       data: {
@@ -22,16 +23,16 @@ exports.checkID = (req, res, next, val) => {
 };
 
 exports.checkBody = (req, res, next) => {
-  if(!req.body.name || !req.body.price) {
+  if (!req.body.name || !req.body.price) {
     return res.status(500).json({
       status: 'Fail',
       data: {
-        message: 'A Tour must have a name and price.'
-      }
-    })
+        message: 'A Tour must have a name and price.',
+      },
+    });
   }
   next();
-}
+};
 
 exports.getAllTours = (req, res) => {
   console.log(req.requestTime);
@@ -49,12 +50,13 @@ exports.createNewTour = (req, res) => {
   console.log(req.body);
   const lastID = tours.length * 1;
   const newID = lastID + 1;
+  // eslint-disable-next-line prefer-object-spread
   const newTour = Object.assign({ id: newID }, req.body);
   tours.push(newTour);
   fs.writeFile(
     `${__dirname}/dev-data/data/tours-simple.json`,
     JSON.stringify(tours),
-    (err) => {
+    () => {
       res.status(201).json({
         status: 'Success',
         data: {
